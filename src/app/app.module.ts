@@ -11,6 +11,7 @@ import { RecipeItemComponent } from './recipes/recipe-item/recipe-item.component
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { customHighlight } from './custom-directives/highlight-component';
+import { customDropdown } from './custom-directives/dropdown-directive';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { customHighlight } from './custom-directives/highlight-component';
     RecipeItemComponent,
     ShoppingListComponent,
     ShoppingEditComponent,
-    customHighlight
+    customHighlight,
+    customDropdown
   ],
   imports: [
     BrowserModule,
