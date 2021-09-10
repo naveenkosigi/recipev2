@@ -1,0 +1,10 @@
+<div class="row">
+    <div class="col-md-12">
+        <app-shopping-edit (sendIngredient)="addIngredient($event)"></app-shopping-edit>
+        <hr>
+        <ul class="list-group">
+            <li class="list-group-item" *ngFor="let ingredient of ingredients">{{ingredient.name}} ({{ingredient.amount}})</li>
+        </ul>
+        <p custom-highlight>Test</p>
+    </div>
+</div>

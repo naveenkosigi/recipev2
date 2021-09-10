@@ -1,0 +1,10 @@
+<app-header (toReturn)="showTab($event)"></app-header>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <app-recipes *ngIf="selectedTab == 1"></app-recipes>
+      <app-shopping-list *ngIf="selectedTab == 2"></app-shopping-list>
+    </div>
+  </div>
+</div>
