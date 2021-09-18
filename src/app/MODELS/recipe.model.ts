@@ -5,8 +5,10 @@ export class recipe{
     public description:string;
     public url:string;
     public ingredients:ingredient[];
+    public id:string;
 
-    constructor(name:string,description:string,url:string,ingredients:ingredient[]){
+    constructor(id:string,name:string,description:string,url:string,ingredients:ingredient[]){
+        this.id=id;
         this.name=name;
         this.description=description;
         this.url=url;
