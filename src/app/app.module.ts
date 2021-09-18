@@ -12,6 +12,12 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { customHighlight } from './custom-directives/highlight-component';
 import { customDropdown } from './custom-directives/dropdown-directive';
+import { RouterModule, Routes } from '@angular/router';
+
+const routes:Routes=[
+  {path : 'recipes', component : RecipesComponent},
+  {path : 'shopping-list', component : ShoppingListComponent}
+];
 
 @NgModule({
   declarations: [
@@ -28,9 +34,13 @@ import { customDropdown } from './custom-directives/dropdown-directive';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
+
