@@ -20,8 +20,11 @@ export class RecipesComponent implements OnInit {
       }
     );
 
-    if(!this.selectedRecipe){
-      this.selectedRecipe=this.recipeListService.getRecipeById(this.route.snapshot.params['id'])
+    if(!this.selectedRecipe && this.route.snapshot.params['id']){
+      this.selectedRecipe=this.recipeListService.getRecipeById(this.route.snapshot.params['id']);
+      if(this.selectedRecipe === undefined){
+        this.router.navigate(["/recipes"]);
+      }
     }
   }
 
