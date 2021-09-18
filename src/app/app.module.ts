@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { RecipesComponent } from './recipes/recipes.component';
@@ -12,16 +11,8 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { customHighlight } from './custom-directives/highlight-component';
 import { customDropdown } from './custom-directives/dropdown-directive';
-import { RouterModule, Routes } from '@angular/router';
+import { routingAppModule } from './routing.app.module';
 
-const routes:Routes=[
-  {path : 'recipes', component : RecipesComponent},
-  {path: 'recipes/:id' , component: RecipesComponent},
-
-  {path : 'shopping-list', component : ShoppingListComponent},
-
-  {path : '**' , redirectTo : 'recipes'}
-];
 
 @NgModule({
   declarations: [
@@ -38,8 +29,7 @@ const routes:Routes=[
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    RouterModule.forRoot(routes)
+    routingAppModule
   ],
   providers: [],
   bootstrap: [AppComponent]
