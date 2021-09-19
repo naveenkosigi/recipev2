@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ingredient} from '../MODELS/ingredient.model';
+import { canDeactiveInterface } from '../services/canDeactivate-guard';
 import { shoppingListService } from '../services/shopping-list.service';
 
 @Component({
@@ -7,7 +8,7 @@ import { shoppingListService } from '../services/shopping-list.service';
   templateUrl: './shopping-list.component.html',
   styleUrls: ['./shopping-list.component.css']
 })
-export class ShoppingListComponent implements OnInit {
+export class ShoppingListComponent implements OnInit,canDeactiveInterface {
   ingredients:ingredient[]=[];
   constructor(private shoppingListService:shoppingListService) { 
     this.ingredients=this.shoppingListService.getIngredients();
@@ -26,5 +27,8 @@ export class ShoppingListComponent implements OnInit {
     this.ingredients.push(ingredient);
   }
 
+  canDeactivate():boolean{
+    return confirm("Leaving this page abruptly may not save the changes");
+  }
 
 }
