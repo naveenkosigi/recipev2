@@ -25,7 +25,7 @@ import { routingAppModule } from './routing.app.module';
     ShoppingListComponent,
     ShoppingEditComponent,
     customHighlight,
-    customDropdown
+    customDropdown,
   ],
   imports: [
     BrowserModule,
