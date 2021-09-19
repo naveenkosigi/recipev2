@@ -2,3 +2,7 @@ img.img-thumbnail{
     float: right;
     max-width: 20%;
 }
+
+.active-link{
+    background-color: gainsboro !important;
+}

@@ -7,11 +7,13 @@ import { ShoppingListComponent } from "./shopping-list/shopping-list.component";
 import {recipeResolver} from './services/recipe-resolver.service'
 import { RecipeDetailComponent } from "./recipes/recipe-detail/recipe-detail.component";
 import { RecipeEditComponent } from "./recipe-edit/recipe-edit.component";
+import { RecipeDummyContentComponent } from './recipe-dummy-content/recipe-dummy-content.component';
 
 
 
 const routes:Routes=[
     {path : 'recipes', component : RecipesComponent, children:[
+        {path : '' , component:RecipeDummyContentComponent},
         {path: ':id' , component: RecipeDetailComponent , resolve:{recipe:recipeResolver}},
         {path:':id/edit', component:RecipeEditComponent, resolve:{recipe:recipeResolver}}
     ]},
@@ -25,7 +27,10 @@ const routes:Routes=[
      imports:[
          RouterModule.forRoot(routes)
      ],
-     exports:[RouterModule]
+     exports:[RouterModule],
+     declarations: [
+       RecipeDummyContentComponent
+     ]
  })
  
  export class routingAppModule{
