@@ -13,17 +13,6 @@ export class RecipesComponent implements OnInit {
   constructor(private recipeListService:recipeListService,private route:ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
-
-    if(!this.selectedRecipe && this.route.snapshot.params['id']){
-      this.selectedRecipe=this.recipeListService.getRecipeById(this.route.snapshot.params['id']);
-      if(this.selectedRecipe === undefined){
-        this.router.navigate(["/recipes"]);
-      }
-    }
-
-    this.route.data.subscribe((data:Data) => {
-      this.selectedRecipe=data['recipe'];
-    });
   }
 
 }
