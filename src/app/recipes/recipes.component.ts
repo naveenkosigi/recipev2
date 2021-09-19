@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Data, Params, Router } from '@angular/router';
 import { recipe } from '../MODELS/recipe.model';
 import { recipeListService } from '../services/recipe-list.service';
 
@@ -21,8 +21,8 @@ export class RecipesComponent implements OnInit {
       }
     }
 
-    this.route.params.subscribe((params:Params) => {
-      this.selectedRecipe=this.recipeListService.getRecipeById(params.id);
+    this.route.data.subscribe((data:Data) => {
+      this.selectedRecipe=data['recipe'];
     });
   }
 
