@@ -1,19 +1,27 @@
 <div class="row">
-    <div class="col-xs-6">
-        <label for="name">NAME</label>
-        <input type="text" class="form-control" id="name" #name>    
-    </div>
-
-    <div class="col-xs-6">
-        <label for="name">NUMBER</label>
-        <input type="number" class="form-control" id="name" #amount>
-    </div>
+    <form name="shopping-list-form" #ngForm="ngForm">
+        <div class="col-xs-6">
+            <label for="name">NAME</label>
+            <input type="text" class="form-control" id="name" ngModel name="ingredient" required #username="ngModel">
+            <div class="alert alert-danger" *ngIf="!username.valid && username.touched">
+                Mandatory Field
+            </div>    
+        </div>
+    
+        <div class="col-xs-6">
+            <label for="name">NUMBER</label>
+            <input type="number" class="form-control" id="name" ngModel name="amount" required #amount="ngModel">
+            <div class="alert alert-danger" *ngIf="!amount.valid && amount.touched">
+                Mandatory Field
+            </div>
+        </div>
+    </form>
 </div>
 
 <div class="row">
     <div class="col-xs-12">
-        <button type="button" class="btn btn-primary" (click)="addRecipe(name,amount)">Add</button>
+        <button type="button" class="btn btn-primary" (click)="addRecipe()" [disabled]="!ngForm.valid">Add</button>
         <button type="button" class="btn btn-secondary">Delete</button>
-        <button type="button" class="btn btn-success">Clear</button>    
+        <button type="button" class="btn btn-success" (click)="ngForm.form.reset();">Clear</button>    
     </div>
 </div>

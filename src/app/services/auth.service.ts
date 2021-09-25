@@ -20,7 +20,7 @@ export class authService{
                     resolve(this.isAuthenticated);
                     this.router.navigate(['/recipes']);
                 }
-            }, 5000);
+            }, 500);
         });
     }
 }

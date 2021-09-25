@@ -31,4 +31,8 @@ export class ShoppingListComponent implements OnInit,canDeactiveInterface {
     return confirm("Leaving this page abruptly may not save the changes");
   }
 
+  editIngredient(index:number){
+    this.shoppingListService.editIngredient.next(index);
+  }
+
 }

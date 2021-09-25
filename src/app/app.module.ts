@@ -12,6 +12,7 @@ import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-ed
 import { customHighlight } from './custom-directives/highlight-component';
 import { customDropdown } from './custom-directives/dropdown-directive';
 import { routingAppModule } from './routing.app.module';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { routingAppModule } from './routing.app.module';
   ],
   imports: [
     BrowserModule,
-    routingAppModule
+    routingAppModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

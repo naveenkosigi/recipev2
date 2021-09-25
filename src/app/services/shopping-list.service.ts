@@ -7,6 +7,7 @@ import { ingredient } from "../MODELS/ingredient.model";
 export class shoppingListService{
     ingredients:ingredient[];
     triggerChange:Subject<any>=new Subject<any>();
+    editIngredient:Subject<number>=new Subject<number>();
 
     constructor(){
         this.ingredients=[
@@ -20,7 +21,10 @@ export class shoppingListService{
         this.triggerChange.next();
     }
 
-    getIngredients(){
+    getIngredients(byReference:boolean | void){
+        if(byReference === true){
+            return this.ingredients;
+        }
         return this.ingredients.slice();
     }
 }
