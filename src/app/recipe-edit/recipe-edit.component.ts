@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup} from '@angular/forms';
+import { FormControl, FormGroup, Validators} from '@angular/forms';
 import { ActivatedRoute, Data, Route, Router } from '@angular/router';
 
 @Component({
@@ -25,8 +25,9 @@ export class RecipeEditComponent implements OnInit {
     });
 
     this.ngForm=new FormGroup({
-      recipeName:new FormControl(),
-      imageUrl:new FormControl()
+      recipeName:new FormControl('',Validators.required),
+      imageUrl:new FormControl('',Validators.required),
+      description:new FormControl('',Validators.required)
     });
   }
 

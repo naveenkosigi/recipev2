@@ -12,11 +12,11 @@
             <input type="text" class="form-control" id="url" formControlName="imageUrl">
         </div>
         <div class="form-group">
-            <img src="" alt="imageUrl" class="img-responsive">
+            <img src="{{ngForm.value.imageUrl}}" alt="imageUrl" class="img-responsive">
         </div>
         <div class="form-group">
             <label for="description">DESCRIPTION</label> <br/>
-            <textarea id="description" rows="6" class="form-control"></textarea>
+            <textarea id="description" rows="6" class="form-control" formControlName="description"></textarea>
         </div>
         <label>INGREDIENTS</label>
         <div class="row">
