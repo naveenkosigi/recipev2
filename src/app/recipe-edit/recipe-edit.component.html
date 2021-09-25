@@ -18,16 +18,19 @@
             <label for="description">DESCRIPTION</label> <br/>
             <textarea id="description" rows="6" class="form-control" formControlName="description"></textarea>
         </div>
+        <button type="button" class="btn btn-success" (click)="addIngredient()">ADD INGREDIENT</button>
         <label>INGREDIENTS</label>
-        <div class="row">
-            <div class="col-xs-8">
-                <input type="text" class="form-control">
-            </div>
-            <div class="col-xs-2">
-                <input type="number" class="form-control">
-            </div>
-            <div class="col-xs-2">
-                <button type="button" class="btn btn-danger">&#9986;</button>
+        <div class="row" formArrayName="ingredients">
+            <div class="row" *ngFor="let ingredients of aliases.controls;let i=index" [formGroupName]="i">
+                <div class="col-xs-8">
+                    <input type="text" class="form-control" formControlName="name">
+                </div>
+                <div class="col-xs-2">
+                    <input type="number" class="form-control" formControlName="amount">
+                </div>
+                <div class="col-xs-2">
+                    <button type="button" class="btn btn-danger">&#9986;</button>
+                </div>
             </div>
         </div>
      </form>   

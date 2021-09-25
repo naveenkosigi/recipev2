@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import { ActivatedRoute, Data, Route, Router } from '@angular/router';
+import { ingredient } from '../MODELS/ingredient.model';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -27,12 +28,24 @@ export class RecipeEditComponent implements OnInit {
     this.ngForm=new FormGroup({
       recipeName:new FormControl('',Validators.required),
       imageUrl:new FormControl('',Validators.required),
-      description:new FormControl('',Validators.required)
+      description:new FormControl('',Validators.required),
+      ingredients:new FormArray([])
     });
   }
 
   addRecipe():void{
     console.log(this.ngForm);
+  }
+
+  addIngredient():void{
+    (<FormArray>this.ngForm.get("ingredients")).push(new FormGroup({
+      name:new FormControl(),
+      amount:new FormControl()
+    }));
+  }
+
+  get aliases() {
+    return this.ngForm.get('ingredients') as FormArray;
   }
 
 }
