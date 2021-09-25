@@ -13,6 +13,7 @@ import { customHighlight } from './custom-directives/highlight-component';
 import { customDropdown } from './custom-directives/dropdown-directive';
 import { routingAppModule } from './routing.app.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ShoppingListComponent,
     ShoppingEditComponent,
     customHighlight,
-    customDropdown
+    customDropdown,
+    RecipeEditComponent
   ],
   imports: [
     BrowserModule,
