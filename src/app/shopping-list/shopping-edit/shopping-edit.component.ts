@@ -47,4 +47,16 @@ export class ShoppingEditComponent implements OnInit,OnDestroy {
     this.subscription.unsubscribe();
   }  
 
+  deleteRecipe():void{
+    if(this.editIngredint !== undefined && this.editIndex !== undefined){
+      let arrayRef=this.shoppingListService.getIngredients(true);
+      arrayRef.splice(this.editIndex,1);
+      this.shoppingListService.triggerChange.next();
+      this.editIndex=this.editIngredint=undefined;
+      this.ngForm.resetForm();
+    }
+    else{
+      return;
+    }
+  }
 }
