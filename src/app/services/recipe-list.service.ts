@@ -41,4 +41,9 @@ export class recipeListService{
         this.recipes.splice(index-1,1,recipe);
         this.triggerChange.next(true);
     }
+
+    removeRecipeByIndex(index:number){
+        this.recipes.splice(index-1,1);
+        this.triggerChange.next();
+    }
 }
