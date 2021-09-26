@@ -58,6 +58,9 @@ export class RecipeEditComponent implements OnInit,AfterContentInit {
   }
 
   addRecipe():void{
+    if(!this.ngForm.valid){
+      return;
+    }
     let newRecipe:recipe;
     if(this.editMode === true){
       newRecipe=new recipe(this.editIndex + "",this.ngForm.value.recipeName,this.ngForm.value.description,this.ngForm.value.imageUrl,this.ngForm.value.ingredients);
