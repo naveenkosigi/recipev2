@@ -77,7 +77,14 @@ export class RecipeEditComponent implements OnInit,AfterContentInit {
     }));
   }
 
-  get aliases() {
+  removeCurrentIngredient(index:number):void{
+    this.aliases.removeAt(index);
+    if(this.aliases.length === 0){
+      this.addIngredient();
+    }
+  }
+
+  get aliases() : FormArray {
     return this.ngForm.get('ingredients') as FormArray;
   }
 
