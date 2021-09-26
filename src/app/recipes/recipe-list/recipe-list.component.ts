@@ -16,6 +16,10 @@ export class RecipeListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.recipeListService.triggerChange.subscribe(() =>{
+      this.recipes=this.recipeListService.getRecipes();
+    })
   }
 
   clickedRecipe(event : any):void{
@@ -25,5 +29,7 @@ export class RecipeListComponent implements OnInit {
   newRecipe():void{
     this.router.navigate(["new"],{relativeTo:this.route});
   }
+
+
 
 }

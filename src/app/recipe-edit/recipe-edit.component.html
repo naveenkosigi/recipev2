@@ -1,6 +1,6 @@
 <div class="row">
     <form [formGroup]="ngForm">
-        <button type="button" class="btn btn-success" (click)="addRecipe()">SAVE</button>
+        <button type="button" class="btn btn-success" (click)="addRecipe()" [disabled]="!ngForm.valid">SAVE</button>
         <button type="button" class="btn btn-danger">CANCEL</button>
 
         <div class="form-group">
@@ -19,6 +19,7 @@
             <textarea id="description" rows="6" class="form-control" formControlName="description"></textarea>
         </div>
         <button type="button" class="btn btn-success" (click)="addIngredient()">ADD INGREDIENT</button>
+        <br/>
         <label>INGREDIENTS</label>
         <div class="row" formArrayName="ingredients">
             <div class="row" *ngFor="let ingredients of aliases.controls;let i=index" [formGroupName]="i">
