@@ -16,6 +16,13 @@ export class RecipeEditComponent implements OnInit,AfterContentInit {
   constructor(private router:Router,private route:ActivatedRoute,private recipeListService:recipeListService) { }
 
   ngOnInit(): void {
+    this.ngForm=new FormGroup({
+      recipeName:new FormControl('',Validators.required),
+      imageUrl:new FormControl('',Validators.required),
+      description:new FormControl('',Validators.required),
+      ingredients:new FormArray([])
+    });
+
     this.route.data.subscribe((data:Data) => {
       if(data['recipe'] === undefined){
         this.editMode=false;
@@ -23,15 +30,22 @@ export class RecipeEditComponent implements OnInit,AfterContentInit {
       }
       else{
         this.editMode=true;
+        let recipe:recipe=data['recipe'];
+        let ingredients:FormArray=new FormArray([]);
+        for (let ingredient of recipe.ingredients){
+          ingredients.push(new FormGroup({
+            name:new FormControl(ingredient.name,Validators.required),
+            amount:new FormControl(ingredient.amount,Validators.required)
+          }));
+        }
+        this.ngForm=new FormGroup({
+          recipeName:new FormControl(recipe.name,Validators.required),
+          imageUrl:new FormControl(recipe.url,Validators.required),
+          description:new FormControl(recipe.description,Validators.required),
+          ingredients:ingredients
+        });
       }
       console.log(this.editMode);
-    });
-
-    this.ngForm=new FormGroup({
-      recipeName:new FormControl('',Validators.required),
-      imageUrl:new FormControl('',Validators.required),
-      description:new FormControl('',Validators.required),
-      ingredients:new FormArray([])
     });
   }
 
