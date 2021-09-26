@@ -36,4 +36,9 @@ export class recipeListService{
         this.recipes.push(recipe);
         this.triggerChange.next(true);
     }
+
+    replaceRecipeByIndex(index:number,recipe:recipe){
+        this.recipes.splice(index-1,1,recipe);
+        this.triggerChange.next(true);
+    }
 }

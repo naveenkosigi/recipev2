@@ -13,6 +13,7 @@ import { recipeListService } from '../services/recipe-list.service';
 export class RecipeEditComponent implements OnInit,AfterContentInit {
   editMode:boolean=false;
   ngForm:FormGroup;
+  editIndex:number=-1;
   constructor(private router:Router,private route:ActivatedRoute,private recipeListService:recipeListService) { }
 
   ngOnInit(): void {
@@ -44,6 +45,7 @@ export class RecipeEditComponent implements OnInit,AfterContentInit {
           description:new FormControl(recipe.description,Validators.required),
           ingredients:ingredients
         });
+        this.editIndex=+recipe.id;
       }
       console.log(this.editMode);
     });
@@ -56,9 +58,16 @@ export class RecipeEditComponent implements OnInit,AfterContentInit {
   }
 
   addRecipe():void{
-    let newRecipe=new recipe((this.recipeListService.getRecipes().length +1)+"",this.ngForm.value.recipeName,this.ngForm.value.description,this.ngForm.value.imageUrl,this.ngForm.value.ingredients);
-    this.recipeListService.addNewRecipe(newRecipe);
-    this.router.navigateByUrl("recipes/" + newRecipe.id);
+    let newRecipe:recipe;
+    if(this.editMode === true){
+      newRecipe=new recipe(this.editIndex + "",this.ngForm.value.recipeName,this.ngForm.value.description,this.ngForm.value.imageUrl,this.ngForm.value.ingredients);
+      this.recipeListService.replaceRecipeByIndex(this.editIndex,newRecipe);
+    }
+    else{
+      newRecipe=new recipe((this.recipeListService.getRecipes().length +1)+"",this.ngForm.value.recipeName,this.ngForm.value.description,this.ngForm.value.imageUrl,this.ngForm.value.ingredients);
+      this.recipeListService.addNewRecipe(newRecipe);
+    }
+    this.router.navigateByUrl("recipes/" + newRecipe.id);  
   }
 
   addIngredient():void{

@@ -1,6 +1,6 @@
 <div class="row">
     <form [formGroup]="ngForm">
-        <button type="button" class="btn btn-success" (click)="addRecipe()" [disabled]="!ngForm.valid">SAVE</button>
+        <button type="button" class="btn btn-success" (click)="addRecipe()" [disabled]="!ngForm.valid">{{editMode ? 'EDIT' : 'SAVE'}}</button>
         <button type="button" class="btn btn-danger">CANCEL</button>
 
         <div class="form-group">
