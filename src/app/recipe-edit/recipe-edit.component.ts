@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import { ActivatedRoute, Data, Route, Router } from '@angular/router';
 import { ingredient } from '../MODELS/ingredient.model';
+import { recipe } from '../MODELS/recipe.model';
+import { recipeListService } from '../services/recipe-list.service';
 
 @Component({
   selector: 'app-recipe-edit',
   templateUrl: './recipe-edit.component.html',
   styleUrls: ['./recipe-edit.component.css']
 })
-export class RecipeEditComponent implements OnInit {
+export class RecipeEditComponent implements OnInit,AfterContentInit {
   editMode:boolean=false;
   ngForm:FormGroup;
-  constructor(private router:Router,private route:ActivatedRoute) { }
+  constructor(private router:Router,private route:ActivatedRoute,private recipeListService:recipeListService) { }
 
   ngOnInit(): void {
     this.route.data.subscribe((data:Data) => {
@@ -33,14 +35,21 @@ export class RecipeEditComponent implements OnInit {
     });
   }
 
+  ngAfterContentInit():void{
+    if(this.editMode === false){
+      this.addIngredient();
+    }
+  }
+
   addRecipe():void{
-    console.log(this.ngForm);
+    let newRecipe=new recipe((this.recipeListService.getRecipes().length +1)+"",this.ngForm.value.recipeName,this.ngForm.value.description,this.ngForm.value.imageUrl,this.ngForm.value.ingredients);
+    this.recipeListService.addNewRecipe(newRecipe);
   }
 
   addIngredient():void{
     (<FormArray>this.ngForm.get("ingredients")).push(new FormGroup({
-      name:new FormControl(),
-      amount:new FormControl()
+      name:new FormControl('',Validators.required),
+      amount:new FormControl('',Validators.required)
     }));
   }
 
