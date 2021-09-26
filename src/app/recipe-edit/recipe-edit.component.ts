@@ -88,4 +88,7 @@ export class RecipeEditComponent implements OnInit,AfterContentInit {
     return this.ngForm.get('ingredients') as FormArray;
   }
 
+  cancel():void{
+    this.router.navigate(["../"],{relativeTo:this.route})
+  }
 }
