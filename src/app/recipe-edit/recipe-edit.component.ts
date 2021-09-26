@@ -44,6 +44,7 @@ export class RecipeEditComponent implements OnInit,AfterContentInit {
   addRecipe():void{
     let newRecipe=new recipe((this.recipeListService.getRecipes().length +1)+"",this.ngForm.value.recipeName,this.ngForm.value.description,this.ngForm.value.imageUrl,this.ngForm.value.ingredients);
     this.recipeListService.addNewRecipe(newRecipe);
+    this.router.navigateByUrl("recipes/" + newRecipe.id);
   }
 
   addIngredient():void{
