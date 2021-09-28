@@ -28,7 +28,7 @@ export class RecipeEditComponent implements OnInit,AfterContentInit {
     });
 
     this.route.data.subscribe((data:Data) => {
-      if(data['recipe'] === undefined){
+      if(!data['recipe']){
         this.editMode=false;
         this.router.navigateByUrl("/recipes/new");
       }

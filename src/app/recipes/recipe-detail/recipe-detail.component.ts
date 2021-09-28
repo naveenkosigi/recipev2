@@ -16,8 +16,11 @@ export class RecipeDetailComponent implements OnInit {
   ngOnInit(): void {
     this.route.data.subscribe((data:Data) => {
       this.recipe=data['recipe'];
-      if(this.recipe === undefined){
+      if(!this.recipe){
         this.router.navigateByUrl("/recipes");
+      }
+      else{
+        this.recipe.id=this.route.snapshot.params.id;
       }
     });
   }
