@@ -74,9 +74,9 @@ export class RecipeEditComponent implements OnInit,AfterContentInit {
 
     let newRecipe:recipe;
     if(this.editMode === true){
-      this.httpClient.put('https://recipev2-bcd02-default-rtdb.firebaseio.com/recipes.json/' + this.selectedRecipe.id,sendData)
+      this.httpClient.put('https://recipev2-bcd02-default-rtdb.firebaseio.com/recipes/' + this.selectedRecipe.id + ".json",sendData)
       .subscribe((data) => {
-        newRecipe=new recipe(this.editIndex + "",this.ngForm.value.recipeName,this.ngForm.value.description,this.ngForm.value.imageUrl,this.ngForm.value.ingredients);
+        newRecipe=new recipe(this.selectedRecipe.id,this.ngForm.value.recipeName,this.ngForm.value.description,this.ngForm.value.imageUrl,this.ngForm.value.ingredients);
         this.recipeListService.replaceRecipeByIndex(this.editIndex,newRecipe);
         this.router.navigateByUrl("recipes/" + newRecipe.id);    
       });
