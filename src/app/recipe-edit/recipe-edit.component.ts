@@ -4,6 +4,7 @@ import { ActivatedRoute, Data, Route, Router } from '@angular/router';
 import { ingredient } from '../MODELS/ingredient.model';
 import { recipe } from '../MODELS/recipe.model';
 import { recipeListService } from '../services/recipe-list.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -14,7 +15,9 @@ export class RecipeEditComponent implements OnInit,AfterContentInit {
   editMode:boolean=false;
   ngForm:FormGroup;
   editIndex:number=-1;
-  constructor(private router:Router,private route:ActivatedRoute,private recipeListService:recipeListService) { }
+  selectedRecipe:recipe;
+
+  constructor(private router:Router,private route:ActivatedRoute,private recipeListService:recipeListService,private httpClient:HttpClient) { }
 
   ngOnInit(): void {
     this.ngForm=new FormGroup({
@@ -32,6 +35,7 @@ export class RecipeEditComponent implements OnInit,AfterContentInit {
       else{
         this.editMode=true;
         let recipe:recipe=data['recipe'];
+        this.selectedRecipe=recipe;
         let ingredients:FormArray=new FormArray([]);
         for (let ingredient of recipe.ingredients){
           ingredients.push(new FormGroup({
@@ -61,16 +65,31 @@ export class RecipeEditComponent implements OnInit,AfterContentInit {
     if(!this.ngForm.valid){
       return;
     }
+    let sendData ={
+      name:this.ngForm.value.recipeName,
+      description:this.ngForm.value.description,
+      url:this.ngForm.value.imageUrl,
+      ingredients:this.ngForm.value.ingredients
+    };
+
     let newRecipe:recipe;
     if(this.editMode === true){
-      newRecipe=new recipe(this.editIndex + "",this.ngForm.value.recipeName,this.ngForm.value.description,this.ngForm.value.imageUrl,this.ngForm.value.ingredients);
-      this.recipeListService.replaceRecipeByIndex(this.editIndex,newRecipe);
+      this.httpClient.put('https://recipev2-bcd02-default-rtdb.firebaseio.com/recipes.json/' + this.selectedRecipe.id,sendData)
+      .subscribe((data) => {
+        newRecipe=new recipe(this.editIndex + "",this.ngForm.value.recipeName,this.ngForm.value.description,this.ngForm.value.imageUrl,this.ngForm.value.ingredients);
+        this.recipeListService.replaceRecipeByIndex(this.editIndex,newRecipe);
+        this.router.navigateByUrl("recipes/" + newRecipe.id);    
+      });
     }
     else{
-      newRecipe=new recipe((this.recipeListService.getRecipes().length +1)+"",this.ngForm.value.recipeName,this.ngForm.value.description,this.ngForm.value.imageUrl,this.ngForm.value.ingredients);
-      this.recipeListService.addNewRecipe(newRecipe);
+      this.httpClient.post('https://recipev2-bcd02-default-rtdb.firebaseio.com/recipes.json',sendData)
+      .subscribe((data:any) => {
+        console.log(data);
+        newRecipe=new recipe(data.name,this.ngForm.value.recipeName,this.ngForm.value.description,this.ngForm.value.imageUrl,this.ngForm.value.ingredients);
+        this.recipeListService.addNewRecipe(newRecipe);
+        this.router.navigateByUrl("recipes/" + newRecipe.id);  
+      });
     }
-    this.router.navigateByUrl("recipes/" + newRecipe.id);  
   }
 
   addIngredient():void{

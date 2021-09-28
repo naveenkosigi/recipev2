@@ -7,6 +7,7 @@ export class recipe{
     public ingredients:ingredient[];
     public id:string;
 
+
     constructor(id:string,name:string,description:string,url:string,ingredients:ingredient[]){
         this.id=id;
         this.name=name;
