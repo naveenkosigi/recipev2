@@ -73,8 +73,15 @@ export class recipeListService{
         }
     }
 
-    removeRecipeByIndex(index:number){
-        this.recipes.splice(index-1,1);
+    removeRecipeById(id:string){
+        let index=0;
+        for(let recipe of this.recipes){
+            if(recipe.id === id){
+                break;
+            }
+            index++;
+        }
+        this.recipes.splice(index,1);
         this.triggerChange.next();
     }
 }
