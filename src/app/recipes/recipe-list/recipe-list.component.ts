@@ -17,8 +17,10 @@ export class RecipeListComponent implements OnInit,OnDestroy {
   subscriptionLoadingIndicator:Subscription;
   constructor(private recipeListService:recipeListService,private router:Router,private route:ActivatedRoute) { 
     this.recipes=this.recipeListService.getRecipes();
-    this.subscriptionLoadingIndicator=this.recipeListService.isLoading.subscribe(() => {
-      this.isLoading=false;
+    this.subscriptionLoadingIndicator=this.recipeListService.isLoading.subscribe((value:boolean) => {
+      if(value === true){
+        this.isLoading=false;
+      }
     });
   }
 
