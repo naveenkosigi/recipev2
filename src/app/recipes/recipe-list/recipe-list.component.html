@@ -5,4 +5,7 @@
 </div>
 <hr>
 
-<app-recipe-item *ngFor="let recipe of recipes" [recipe]="recipe" (selectedRecipe)="clickedRecipe($event)"></app-recipe-item>
+<div *ngIf="isLoading;else elseBlock"><h1>LOADING....</h1></div>
+<ng-template #elseBlock>
+    <app-recipe-item *ngFor="let recipe of recipes" [recipe]="recipe" (selectedRecipe)="clickedRecipe($event)"></app-recipe-item>
+</ng-template>

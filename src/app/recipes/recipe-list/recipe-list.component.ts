@@ -13,8 +13,13 @@ import {recipe} from '../../MODELS/recipe.model'
 export class RecipeListComponent implements OnInit,OnDestroy {
   recipes:recipe[]=[];
   subscription:Subscription;
+  isLoading=true;
+  subscriptionLoadingIndicator:Subscription;
   constructor(private recipeListService:recipeListService,private router:Router,private route:ActivatedRoute) { 
     this.recipes=this.recipeListService.getRecipes();
+    this.subscriptionLoadingIndicator=this.recipeListService.isLoading.subscribe(() => {
+      this.isLoading=false;
+    });
   }
 
   ngOnInit(): void {
@@ -34,6 +39,7 @@ export class RecipeListComponent implements OnInit,OnDestroy {
 
   ngOnDestroy():void{
     this.subscription.unsubscribe();
+    this.subscriptionLoadingIndicator.unsubscribe();
   }
 
 }
