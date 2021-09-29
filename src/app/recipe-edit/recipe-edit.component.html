@@ -11,7 +11,7 @@
             <label for="url">IMAGE URL</label>
             <input type="text" class="form-control" id="url" formControlName="imageUrl">
         </div>
-        <div class="form-group">
+        <div class="form-group" *ngIf="validImageUrl">
             <img src="{{ngForm.value.imageUrl}}" alt="imageUrl" class="img-responsive">
         </div>
         <div class="form-group">

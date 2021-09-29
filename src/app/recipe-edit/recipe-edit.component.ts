@@ -1,10 +1,12 @@
 import { AfterContentInit, Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
+import { AsyncValidatorFn, FormArray, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import { ActivatedRoute, Data, Route, Router } from '@angular/router';
 import { ingredient } from '../MODELS/ingredient.model';
 import { recipe } from '../MODELS/recipe.model';
 import { recipeListService } from '../services/recipe-list.service';
 import { HttpClient } from '@angular/common/http';
+import { Observable, Observer, of, Subject, Subscriber } from 'rxjs';
+import { delay, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -16,13 +18,14 @@ export class RecipeEditComponent implements OnInit,AfterContentInit {
   ngForm:FormGroup;
   editIndex:number=-1;
   selectedRecipe:recipe;
+  validImageUrl:boolean=false;
 
   constructor(private router:Router,private route:ActivatedRoute,private recipeListService:recipeListService,private httpClient:HttpClient) { }
 
   ngOnInit(): void {
     this.ngForm=new FormGroup({
       recipeName:new FormControl('',Validators.required),
-      imageUrl:new FormControl('',Validators.required),
+      imageUrl:new FormControl('',Validators.required,[this.validateImage.bind(this)]),
       description:new FormControl('',Validators.required),
       ingredients:new FormArray([])
     });
@@ -46,7 +49,7 @@ export class RecipeEditComponent implements OnInit,AfterContentInit {
         }
         this.ngForm=new FormGroup({
           recipeName:new FormControl(recipe.name,Validators.required),
-          imageUrl:new FormControl(recipe.url,Validators.required),
+          imageUrl:new FormControl(recipe.url,Validators.required,[this.validateImage.bind(this)]),
           description:new FormControl(recipe.description,Validators.required),
           ingredients:ingredients
         });
@@ -113,5 +116,19 @@ export class RecipeEditComponent implements OnInit,AfterContentInit {
 
   cancel():void{
     this.router.navigate(["../"],{relativeTo:this.route})
+  }
+
+  validateImage(control:FormControl):Observable<any>{
+    this.validImageUrl=false;
+    return this.httpClient.get(control.value,{responseType:'blob'})
+    .pipe(map(data => {
+      if(data.type.indexOf("image/") === -1){
+        return {"invalid":true};
+      }
+      else{
+        this.validImageUrl=true;
+        return null;
+      }
+    }));
   }
 }
