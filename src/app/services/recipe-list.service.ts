@@ -56,9 +56,19 @@ export class recipeListService{
         this.triggerChange.next(true);
     }
 
-    replaceRecipeByIndex(index:number,recipe:recipe){
-        this.recipes.splice(index-1,1,recipe);
-        this.triggerChange.next(true);
+    replaceRecipeById(id:string,newrecipe:recipe){
+        let index=0;
+        for(let recipe of this.recipes){
+            if(recipe.id === id){
+                recipe=newrecipe;
+                break;
+            }
+            index++;
+        }
+        if(index !== this.recipes.length){
+            this.recipes[index]=newrecipe;
+            this.triggerChange.next(true);
+        }
     }
 
     removeRecipeByIndex(index:number){
