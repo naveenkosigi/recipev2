@@ -14,7 +14,8 @@ import { customDropdown } from './custom-directives/dropdown-directive';
 import { routingAppModule } from './routing.app.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
-import {HttpClientModule} from '@angular/common/http'; 
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'; 
+import { customHttpInterceptor } from './interceptors/http-interceptor';
 
 
 @NgModule({
@@ -38,7 +39,7 @@ import {HttpClientModule} from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{provide:HTTP_INTERCEPTORS,useClass:customHttpInterceptor,multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
