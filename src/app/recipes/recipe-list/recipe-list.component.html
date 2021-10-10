@@ -5,12 +5,14 @@
 </div>
 <hr>
 
-<div *ngIf="!isLoading;else elseBlock">
+<div *ngIf="isLoading;else elseBlock">
     <div class="row">
         <div class="col-xs-12">
             <div class="list-group">
                 <a class="loading list-group-item" href="javascript:void(0);">
-                    <span class="grey-out"></span>
+                    <div class="grey-out image-loading">
+                        &nbsp;
+                    </div>
                     <h1 class="grey-out">&nbsp;</h1>
                     <h1 class="grey-out">&nbsp;</h1>
                 </a>
