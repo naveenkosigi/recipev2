@@ -2,3 +2,22 @@ img.img-thumbnail{
     float: right;
     max-width: 20%;
 }
+
+.list-group-item.loading{
+    height: inherit;
+}
+.list-group-item.loading h1{
+    background-image: linear-gradient(to right,#f5f5f5,white);
+    color: #f5f5f5;
+    background-size: 200%;
+    animation: gradient 0.7s ease-in infinite;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: left;
+	}
+	100% {
+		background-position: right;
+	}
+}

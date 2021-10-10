@@ -16,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'; 
 import { customHttpInterceptor } from './interceptors/http-interceptor';
+import { dummyInterceptor } from './interceptors/http-interceptor2';
 
 
 @NgModule({
@@ -39,7 +40,7 @@ import { customHttpInterceptor } from './interceptors/http-interceptor';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [{provide:HTTP_INTERCEPTORS,useClass:customHttpInterceptor,multi:true}],
+  providers: [{provide:HTTP_INTERCEPTORS,useClass:customHttpInterceptor,multi:true},{provide:HTTP_INTERCEPTORS,useClass:dummyInterceptor,multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
