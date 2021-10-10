@@ -7,7 +7,7 @@ img.img-thumbnail{
     height: inherit;
 }
 .list-group-item .grey-out{
-    background-image: linear-gradient(to right,#f5f5f5,white);
+    background-image: linear-gradient(to right,#f5f5f5,#F0EFE9);
     color: #f5f5f5;
     background-size: 200%;
     animation: gradient 0.7s ease-in infinite;
