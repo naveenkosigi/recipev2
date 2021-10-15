@@ -30,7 +30,7 @@ export class AuthenticateComponent implements OnInit,AfterContentInit {
 
     }
     else{
-      this.authenticateService.signUp(this.form.get('username').value,this.form.get('password').value);
+      this.authenticateService.signUp(this.form.get('username').value,this.form.get('password').value).subscribe();
     }
   }
 
