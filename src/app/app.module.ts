@@ -17,6 +17,7 @@ import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'; 
 import { customHttpInterceptor } from './interceptors/http-interceptor';
 import { dummyInterceptor } from './interceptors/http-interceptor2';
+import { AuthenticateComponent } from './authenticate/authenticate.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { dummyInterceptor } from './interceptors/http-interceptor2';
     ShoppingEditComponent,
     customHighlight,
     customDropdown,
-    RecipeEditComponent
+    RecipeEditComponent,
+    AuthenticateComponent
   ],
   imports: [
     BrowserModule,

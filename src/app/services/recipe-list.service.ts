@@ -36,6 +36,8 @@ export class recipeListService{
               }
              this.recipes=data;
              this.triggerChange.next(true);
+          },err => {
+              console.log("error",err);
           });
     }
 
