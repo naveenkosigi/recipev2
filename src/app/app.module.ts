@@ -18,6 +18,7 @@ import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { customHttpInterceptor } from './interceptors/http-interceptor';
 import { dummyInterceptor } from './interceptors/http-interceptor2';
 import { AuthenticateComponent } from './authenticate/authenticate.component';
+import { authInterceptor } from './interceptors/auth-interceptor';
 
 
 @NgModule({
@@ -42,7 +43,7 @@ import { AuthenticateComponent } from './authenticate/authenticate.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{provide:HTTP_INTERCEPTORS,useClass:authInterceptor,multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
