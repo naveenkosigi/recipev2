@@ -6,7 +6,7 @@ import { tap } from "rxjs/operators";
 @Injectable({providedIn:'root'})
 export class authenticateService{
     isLoggedIn:boolean=false;
-    sessionDetails:object;
+    sessionDetails;
     private webAPI:string='AIzaSyC6SJDKQ2B5NIknJOYko0abZsk76N1y22Q';
     constructor(private httpService:HttpClient){
 
@@ -32,6 +32,7 @@ export class authenticateService{
             this.isLoggedIn=true;
             this.sessionDetails=data;
             console.log('loggedIn');
+            console.log(this.sessionDetails);
         }));
     }
 }
