@@ -42,7 +42,7 @@ import { AuthenticateComponent } from './authenticate/authenticate.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [{provide:HTTP_INTERCEPTORS,useClass:customHttpInterceptor,multi:true},{provide:HTTP_INTERCEPTORS,useClass:dummyInterceptor,multi:true}],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

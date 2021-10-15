@@ -1,5 +1,6 @@
 import { AfterContentInit, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { authenticateService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-authenticate',
@@ -8,7 +9,7 @@ import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 })
 export class AuthenticateComponent implements OnInit,AfterContentInit {
   form:FormGroup;
-  constructor() { 
+  constructor(private authenticateService:authenticateService) { 
     this.form=new FormGroup({
       username:new FormControl(null,[Validators.required,Validators.email]),
       password:new FormControl(null,Validators.required)
@@ -25,11 +26,11 @@ export class AuthenticateComponent implements OnInit,AfterContentInit {
 
   authenticate(isSignUp:boolean):void{
     console.log(this.form);
-    if(!isSignUp){
+    if(isSignUp === false){
 
     }
     else{
-
+      this.authenticateService.signUp(this.form.get('username').value,this.form.get('password').value);
     }
   }
 
