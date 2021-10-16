@@ -1,17 +1,23 @@
 import { HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
+import { EMPTY, empty } from "rxjs";
 import { authService } from "../services/auth.service";
 import { authenticateService } from "../services/authentication.service";
 
 @Injectable()
 export class authInterceptor implements HttpInterceptor{
-    constructor(private authService:authenticateService){
+    constructor(private authService:authenticateService,private router:Router){
 
     }
     intercept(httpRequest:HttpRequest<any>,next:HttpHandler){
         let toReturn:HttpRequest<any>;
         console.log(httpRequest);
         if(!httpRequest.url.startsWith("https://identitytoolkit.googleapis.com/") && httpRequest.responseType !== "blob"){
+            if(new Date()>=this.authService.sessionDetails.expirationDate){
+                this.router.navigateByUrl("/authenticate");
+                return EMPTY;
+            }
             toReturn=httpRequest.clone({
                 params:httpRequest.params.append("auth",this.authService.sessionDetails.idToken)
             });

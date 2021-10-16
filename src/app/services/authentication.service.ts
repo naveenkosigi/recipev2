@@ -3,10 +3,22 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { tap } from "rxjs/operators";
 
+interface sessionModel{
+    displayName:string,
+    email:string,
+    expiresIn:string,
+    idToken:string,
+    kind:string,
+    localId:string,
+    refreshToken:string,
+    registered:string,
+    expirationDate:Date
+}
+
 @Injectable({providedIn:'root'})
 export class authenticateService{
     isLoggedIn:boolean=false;
-    sessionDetails;
+    sessionDetails:sessionModel;
     private webAPI:string='AIzaSyC6SJDKQ2B5NIknJOYko0abZsk76N1y22Q';
     constructor(private httpService:HttpClient){
 
@@ -18,7 +30,7 @@ export class authenticateService{
             returnSecureToken:true
         }).pipe(tap(data => {
             this.isLoggedIn=true;
-            this.sessionDetails=data;
+            this.updateSessionData(data);
             console.log(this.isLoggedIn,data);
         }));
     }
@@ -30,9 +42,15 @@ export class authenticateService{
             returnSecureToken:true
         }).pipe(tap(data => {
             this.isLoggedIn=true;
-            this.sessionDetails=data;
+            this.updateSessionData(data);
             console.log('loggedIn');
             console.log(this.sessionDetails);
         }));
+    }
+
+    updateSessionData(response):void{
+        let expirationDate=new Date(new Date().getTime() + +response.expiresIn * 1000);
+        this.sessionDetails={...response,expirationDate:expirationDate};
+        console.log(this.sessionDetails);
     }
 }
