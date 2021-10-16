@@ -4,7 +4,7 @@
         <ul class="nav navbar-nav">
             <li><a href="#" routerLink="/recipes" routerLinkActive="active-link">RECIPES</a></li>
             <li><a href="#" routerLink="/shopping-list" routerLinkActive="active-link">SHOPPING LIST</a></li>
-            <li><a href="#" routerLink="/authenticate" routerLinkActive="active-link">AUTHENTICATE</a></li>
+            <li *ngIf="showAuthentication === true"><a href="#" routerLink="/authenticate" routerLinkActive="active-link">AUTHENTICATE</a></li>
 
         </ul>
         <ul class="nav navbar-nav navbar-right">

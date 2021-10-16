@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { tap } from "rxjs/operators";
 
 interface sessionModel{
@@ -20,6 +20,7 @@ export class authenticateService{
     isLoggedIn:boolean=false;
     sessionDetails:sessionModel;
     private webAPI:string='AIzaSyC6SJDKQ2B5NIknJOYko0abZsk76N1y22Q';
+    sessionSubject:Subject<boolean>=new Subject();
     constructor(private httpService:HttpClient){
 
     }
@@ -32,6 +33,7 @@ export class authenticateService{
             this.isLoggedIn=true;
             this.updateSessionData(data);
             console.log(this.isLoggedIn,data);
+            this.sessionSubject.next(true);
         }));
     }
 
@@ -45,6 +47,7 @@ export class authenticateService{
             this.updateSessionData(data);
             console.log('loggedIn');
             console.log(this.sessionDetails);
+            this.sessionSubject.next(true);
         }));
     }
 
