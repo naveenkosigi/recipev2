@@ -2,10 +2,11 @@
     <a class="navbar-brand" href="#" routerLink="/recipes">Navbar</a>
     <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-            <li><a href="#" routerLink="/recipes" routerLinkActive="active-link">RECIPES</a></li>
-            <li><a href="#" routerLink="/shopping-list" routerLinkActive="active-link">SHOPPING LIST</a></li>
-            <li *ngIf="showAuthentication === true"><a href="#" routerLink="/authenticate" routerLinkActive="active-link">AUTHENTICATE</a></li>
-
+            <li *ngIf="showAuthentication === true;else otherTabs"><a href="#" routerLink="/authenticate" routerLinkActive="active-link">AUTHENTICATE</a></li>
+            <ng-template #otherTabs>
+                <li><a href="#" routerLink="/recipes" routerLinkActive="active-link">RECIPES</a></li>
+                <li><a href="#" routerLink="/shopping-list" routerLinkActive="active-link">SHOPPING LIST</a></li>    
+            </ng-template>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown" custom-dropdown>

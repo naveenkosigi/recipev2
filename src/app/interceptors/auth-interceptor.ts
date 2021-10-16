@@ -15,9 +15,9 @@ export class authInterceptor implements HttpInterceptor{
         console.log(httpRequest);
         if(!httpRequest.url.startsWith("https://identitytoolkit.googleapis.com/") && httpRequest.responseType !== "blob"){
             if(new Date()>=this.authService.sessionDetails.expirationDate){
+                this.authService.sessionSubject.next(false);
                 this.router.navigateByUrl("/authenticate");
                 this.authService.sessionDetails=undefined;
-                this.authService.sessionSubject.next(false);
                 return EMPTY;
             }
             toReturn=httpRequest.clone({
