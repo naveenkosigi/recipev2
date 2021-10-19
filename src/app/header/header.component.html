@@ -9,6 +9,9 @@
             </ng-template>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+            <li *ngIf="showAuthentication === false;">
+                <a href="javascript:void(0)" (click)="logOut()">LOG-OUT</a>
+            </li>
             <li class="dropdown" custom-dropdown>
                 <a href="javascript:void(0);" class="dropdown-toggle" role="button">SETTINGS <span class="caret"></span></a>
                 <ul class="dropdown-menu">

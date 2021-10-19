@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { Observable, Subject } from "rxjs";
 import { tap } from "rxjs/operators";
 
@@ -21,7 +22,7 @@ export class authenticateService{
     sessionDetails:sessionModel;
     private webAPI:string='AIzaSyC6SJDKQ2B5NIknJOYko0abZsk76N1y22Q';
     sessionSubject:Subject<boolean>=new Subject();
-    constructor(private httpService:HttpClient){
+    constructor(private httpService:HttpClient,private router:Router){
 
     }
     signUp(email:string,password:String) : Observable<any>{
@@ -54,6 +55,29 @@ export class authenticateService{
     updateSessionData(response):void{
         let expirationDate=new Date(new Date().getTime() + +response.expiresIn * 1000);
         this.sessionDetails={...response,expirationDate:expirationDate};
-        console.log(this.sessionDetails);
+        localStorage.setItem("cache",JSON.stringify(this.sessionDetails));
+    }
+
+    logOut() : void{
+        localStorage.clear();
+        this.sessionDetails=undefined;
+        this.sessionSubject.next(false);
+        this.router.navigateByUrl("/authenticate");
+    }
+
+    autoLogin() : void{
+        this.sessionDetails=<sessionModel>JSON.parse(localStorage.getItem("cache"));
+        if(this.sessionDetails){
+            this.sessionDetails.expirationDate=new Date(this.sessionDetails.expirationDate);
+            if(new Date()<this.sessionDetails.expirationDate){
+                this.sessionSubject.next(true);
+                return;
+            }
+        }
+
+        localStorage.clear();
+        this.sessionDetails=undefined;
+        this.sessionSubject.next(false);
+        this.router.navigateByUrl("/authenticate");
     }
 }
