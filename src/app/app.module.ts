@@ -19,6 +19,8 @@ import { customHttpInterceptor } from './interceptors/http-interceptor';
 import { dummyInterceptor } from './interceptors/http-interceptor2';
 import { AuthenticateComponent } from './authenticate/authenticate.component';
 import { authInterceptor } from './interceptors/auth-interceptor';
+import { AlertBoxComponent } from './alert-box/alert-box.component';
+import { alertPopUp } from './custom-directives/placeholder-directive';
 
 
 @NgModule({
@@ -34,7 +36,9 @@ import { authInterceptor } from './interceptors/auth-interceptor';
     customHighlight,
     customDropdown,
     RecipeEditComponent,
-    AuthenticateComponent
+    AuthenticateComponent,
+    AlertBoxComponent,
+    alertPopUp
   ],
   imports: [
     BrowserModule,

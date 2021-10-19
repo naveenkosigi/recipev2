@@ -1,6 +1,8 @@
-import { AfterContentInit, Component, OnInit } from '@angular/core';
+import { AfterContentInit, Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AlertBoxComponent } from '../alert-box/alert-box.component';
+import { alertPopUp } from '../custom-directives/placeholder-directive';
 import { authenticateService } from '../services/authentication.service';
 
 @Component({
@@ -10,7 +12,8 @@ import { authenticateService } from '../services/authentication.service';
 })
 export class AuthenticateComponent implements OnInit,AfterContentInit {
   form:FormGroup;
-  constructor(private authenticateService:authenticateService,private router:Router) { 
+  @ViewChild(alertPopUp,{static:false}) alertPopUp:alertPopUp;
+  constructor(private authenticateService:authenticateService,private router:Router,private componentFactoryResolver:ComponentFactoryResolver) { 
     this.form=new FormGroup({
       username:new FormControl(null,[Validators.required,Validators.email]),
       password:new FormControl(null,Validators.required)
@@ -37,6 +40,17 @@ export class AuthenticateComponent implements OnInit,AfterContentInit {
         this.router.navigateByUrl("/recipes");
       });
     }
+  }
+
+  addAlertPopUp() : void{
+    const component=this.componentFactoryResolver.resolveComponentFactory(AlertBoxComponent);
+    const hostElement=this.alertPopUp.containerRef;
+    hostElement.clear();
+    const newComponent=hostElement.createComponent(component);
+    newComponent.instance.message="test dynamic content";
+    newComponent.instance.closed.subscribe(() => {
+      hostElement.clear();
+    });
   }
 
 
