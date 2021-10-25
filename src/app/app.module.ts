@@ -21,21 +21,17 @@ import { AuthenticateComponent } from './authenticate/authenticate.component';
 import { authInterceptor } from './interceptors/auth-interceptor';
 import { AlertBoxComponent } from './alert-box/alert-box.component';
 import { alertPopUp } from './custom-directives/placeholder-directive';
+import { recipeModule } from './modules/recipes-module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    RecipesComponent,
-    RecipeListComponent,
-    RecipeDetailComponent,
-    RecipeItemComponent,
     ShoppingListComponent,
     ShoppingEditComponent,
     customHighlight,
     customDropdown,
-    RecipeEditComponent,
     AuthenticateComponent,
     AlertBoxComponent,
     alertPopUp
@@ -45,7 +41,8 @@ import { alertPopUp } from './custom-directives/placeholder-directive';
     routingAppModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    recipeModule
   ],
   providers: [{provide:HTTP_INTERCEPTORS,useClass:authInterceptor,multi:true}],
   bootstrap: [AppComponent]

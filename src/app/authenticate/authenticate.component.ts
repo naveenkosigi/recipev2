@@ -48,8 +48,9 @@ export class AuthenticateComponent implements OnInit,AfterContentInit {
     hostElement.clear();
     const newComponent=hostElement.createComponent(component);
     newComponent.instance.message="test dynamic content";
-    newComponent.instance.closed.subscribe(() => {
+    const subscription=newComponent.instance.closed.subscribe(() => {
       hostElement.clear();
+      subscription.unsubscribe();
     });
   }
 
