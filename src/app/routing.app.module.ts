@@ -13,17 +13,9 @@ import { AuthenticateComponent } from "./authenticate/authenticate.component";
 
 
 const routes:Routes=[
-    {path : 'recipes', component : RecipesComponent, children:[
-        {path : '' , component:RecipeDummyContentComponent},
-        {path : 'new',component:RecipeEditComponent},
-        {path:':id/edit', component:RecipeEditComponent,pathMatch:'full', resolve:{recipe:recipeResolver}},
-        {path: ':id' , component: RecipeDetailComponent ,pathMatch:"full", resolve:{recipe:recipeResolver}},
-    ]},
-  
     {path : 'shopping-list', component : ShoppingListComponent, canActivate:[authGuard], canDeactivate:[canDeactiveServiceGuard]},
-    {path : 'authenticate',component : AuthenticateComponent},
-  
-    {path : '**' , redirectTo : 'recipes'}
+    {path : 'authenticate',component : AuthenticateComponent}
+
   ];
 
  @NgModule({
