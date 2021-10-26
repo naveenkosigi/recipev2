@@ -2,6 +2,7 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
+import { customDropdown } from "../custom-directives/dropdown-directive";
 import { RecipeEditComponent } from "../recipe-edit/recipe-edit.component";
 import { RecipeDetailComponent } from "../recipes/recipe-detail/recipe-detail.component";
 import { RecipeItemComponent } from "../recipes/recipe-item/recipe-item.component";
@@ -15,6 +16,7 @@ import { recipesRoutingModule } from "./recipes-routing-module";
         RecipeListComponent,
         RecipeDetailComponent,
         RecipeItemComponent,
+        customDropdown,
         RecipeEditComponent
     ],
     imports:[

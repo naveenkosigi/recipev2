@@ -23,6 +23,8 @@ import { AlertBoxComponent } from './alert-box/alert-box.component';
 import { alertPopUp } from './custom-directives/placeholder-directive';
 import { recipeModule } from './modules/recipes-module';
 import { shoppingListModule } from './MODELS/shopping-list.model';
+import { sharedModule } from './modules/shared-module';
+import { sharedServices } from './modules/shared-services';
 
 
 @NgModule({
@@ -30,7 +32,6 @@ import { shoppingListModule } from './MODELS/shopping-list.model';
     AppComponent,
     HeaderComponent,
     customHighlight,
-    customDropdown,
     AuthenticateComponent,
     AlertBoxComponent,
     alertPopUp
@@ -38,13 +39,13 @@ import { shoppingListModule } from './MODELS/shopping-list.model';
   imports: [
     BrowserModule,
     routingAppModule,
-    FormsModule,
-    ReactiveFormsModule,
     HttpClientModule,
     recipeModule,
-    shoppingListModule
+    shoppingListModule,
+    sharedModule,
+    sharedServices
   ],
-  providers: [{provide:HTTP_INTERCEPTORS,useClass:authInterceptor,multi:true}],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
