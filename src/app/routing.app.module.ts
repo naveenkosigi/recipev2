@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
+import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
 import { authGuard } from "./services/auth-guard.service";
 import { canDeactiveServiceGuard } from "./services/canDeactivate-guard";
 import { ShoppingListComponent } from "./shopping-list/shopping-list.component";
@@ -20,7 +20,7 @@ const routes:Routes=[
 
  @NgModule({
      imports:[
-         RouterModule.forRoot(routes)
+         RouterModule.forRoot(routes,{preloadingStrategy:PreloadAllModules})
      ],
      exports:[RouterModule],
      declarations: [
