@@ -11,7 +11,7 @@ import { recipeResolver } from "../services/recipe-resolver.service";
 @NgModule({
     imports:[
         RouterModule.forChild([
-            {path : 'recipes', component : RecipesComponent, children:[
+            {path : '', component : RecipesComponent, children:[
                 {path : '' , component:RecipeDummyContentComponent},
                 {path : 'new',component:RecipeEditComponent},
                 {path:':id/edit', component:RecipeEditComponent,pathMatch:'full', resolve:{recipe:recipeResolver}},
