@@ -3,5 +3,8 @@ import { ingredient } from "../MODELS/ingredient.model";
 
 export class addShoppingList implements Action{
     readonly type="ADD";
-    payload:ingredient
+    
+    constructor(public payload:ingredient){
+
+    }
 }
