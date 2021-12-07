@@ -12,6 +12,8 @@ import { alertPopUp } from './custom-directives/placeholder-directive';
 import { shoppingListModule } from './MODELS/shopping-list.model';
 import { sharedModule } from './modules/shared-module';
 import { sharedServices } from './modules/shared-services';
+import { StoreModule } from '@ngrx/store';
+import { shoppingListReducer } from './reducers/shopping-list-reducer';
 
 
 @NgModule({
@@ -29,7 +31,8 @@ import { sharedServices } from './modules/shared-services';
     HttpClientModule,
     shoppingListModule,
     sharedModule,
-    sharedServices
+    sharedServices,
+    StoreModule.forRoot({shoppingList:shoppingListReducer})
   ],
   providers: [],
   bootstrap: [AppComponent]

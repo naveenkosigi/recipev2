@@ -10,7 +10,7 @@ import { shoppingListService } from '../services/shopping-list.service';
 })
 export class ShoppingListComponent implements OnInit,canDeactiveInterface {
   ingredients:ingredient[]=[];
-  constructor(private shoppingListService:shoppingListService) { 
+  constructor(public shoppingListService:shoppingListService) { 
     this.ingredients=this.shoppingListService.getIngredients();
     this.shoppingListService.triggerChange.subscribe(
       () => {
