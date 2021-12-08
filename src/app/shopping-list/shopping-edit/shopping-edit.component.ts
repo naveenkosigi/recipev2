@@ -3,7 +3,7 @@ import { Component, OnInit, Output,EventEmitter, ViewChild, OnDestroy } from '@a
 import { NgForm } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { updateShoppingList } from 'src/app/ActionDispatchers/shopping-list-actionDispatcher';
+import { deleteShoppingList, updateShoppingList } from 'src/app/ActionDispatchers/shopping-list-actionDispatcher';
 import { ingredient } from 'src/app/MODELS/ingredient.model';
 import { shoppingListService } from 'src/app/services/shopping-list.service';
 
@@ -53,9 +53,7 @@ export class ShoppingEditComponent implements OnInit,OnDestroy {
 
   deleteRecipe():void{
     if(this.editIngredint !== undefined && this.editIndex !== undefined){
-      let arrayRef=this.shoppingListService.getIngredients(true);
-      arrayRef.splice(this.editIndex,1);
-      this.shoppingListService.triggerChange.next();
+      this.store.dispatch(new deleteShoppingList({index:this.editIndex}));
       this.editIndex=this.editIngredint=undefined;
       this.ngForm.resetForm();
     }

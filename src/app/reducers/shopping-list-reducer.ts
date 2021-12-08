@@ -1,5 +1,5 @@
 import { Action } from "@ngrx/store";
-import { addShoppingList, addToShoppingList, updateShoppingList } from "../ActionDispatchers/shopping-list-actionDispatcher";
+import { addShoppingList, addToShoppingList, deleteShoppingList, updateShoppingList } from "../ActionDispatchers/shopping-list-actionDispatcher";
 import { ingredient } from "../MODELS/ingredient.model";
 
 const initialState={
@@ -9,7 +9,7 @@ const initialState={
     ]
 }
 
-export function shoppingListReducer(state = initialState,action:addShoppingList | addToShoppingList | updateShoppingList){
+export function shoppingListReducer(state = initialState,action:addShoppingList | addToShoppingList | updateShoppingList | deleteShoppingList){
     switch(action.type){
         case "ADD":
             return{
@@ -34,6 +34,13 @@ export function shoppingListReducer(state = initialState,action:addShoppingList 
             return {
                 ...state,
                 ingredients:updatedIngredients
+            }
+        case "DELETE":
+            return{
+                ...state,
+                ingredients:state.ingredients.filter((ing,index) => {
+                    return index !== action.payload.index;
+                })
             }
         default:
             return state;    

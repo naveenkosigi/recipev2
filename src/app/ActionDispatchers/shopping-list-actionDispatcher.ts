@@ -21,6 +21,14 @@ export class updateShoppingList implements Action{
     readonly type="UPDATE";
 
     constructor(public payload:{ingredient:ingredient,index:number}){
-        
+
+    }
+}
+
+export class deleteShoppingList implements Action{
+    readonly type="DELETE";
+    
+    constructor(public payload:{index:number}){
+
     }
 }
