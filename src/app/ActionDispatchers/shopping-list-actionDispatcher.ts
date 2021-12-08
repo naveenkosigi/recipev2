@@ -8,3 +8,11 @@ export class addShoppingList implements Action{
 
     }
 }
+
+export class addToShoppingList implements Action{
+    readonly type="ADD_MULTIPLE";
+
+    constructor(public payload:ingredient[]){
+        
+    }
+}

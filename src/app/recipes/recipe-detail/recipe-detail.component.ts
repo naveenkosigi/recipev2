@@ -4,6 +4,10 @@ import { recipe } from 'src/app/MODELS/recipe.model';
 import { recipeListService } from 'src/app/services/recipe-list.service';
 import { shoppingListService } from 'src/app/services/shopping-list.service';
 import { HttpClient } from '@angular/common/http';
+import { Store } from '@ngrx/store';
+import { ingredient } from 'src/app/MODELS/ingredient.model';
+import { Observable } from 'rxjs';
+import { addToShoppingList } from 'src/app/ActionDispatchers/shopping-list-actionDispatcher';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -12,7 +16,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RecipeDetailComponent implements OnInit {
   recipe:recipe;
-  constructor(private shoppingListService:shoppingListService,private route:ActivatedRoute,private recipeService:recipeListService,private router:Router,private httpClient:HttpClient) { }
+  storeObservable:Observable<{ingredients:ingredient[]}>
+  constructor(private shoppingListService:shoppingListService,private route:ActivatedRoute,private recipeService:recipeListService,private router:Router,private httpClient:HttpClient,private store:Store<{shoppingList:{ingredients:ingredient[]}}>) { }
 
   ngOnInit(): void {
     this.route.data.subscribe((data:Data) => {
@@ -27,9 +32,11 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   sendToShoppingList():void{
-    for(let ingredient of this.recipe.ingredients){
+    this.store.dispatch(new addToShoppingList(this.recipe.ingredients));
+
+    /*for(let ingredient of this.recipe.ingredients){
       this.shoppingListService.addIngredient(ingredient);
-    }
+    }*/
   }
 
   deleteRecipe():void{
