@@ -2,11 +2,23 @@ import { Action } from "@ngrx/store";
 import { addShoppingList, addToShoppingList, deleteShoppingList, updateShoppingList } from "../ActionDispatchers/shopping-list-actionDispatcher";
 import { ingredient } from "../MODELS/ingredient.model";
 
-const initialState={
+export interface shoppingListState{
+    shoppingList:state
+}
+
+export interface state{
+    ingredients:ingredient[],
+    editedIngredient:ingredient,
+    editedIngredientIndex:Number
+}
+
+const initialState : state={
     ingredients:[
         new ingredient('apple',5),
         new ingredient('tomato',10)
-    ]
+    ],
+    editedIngredient:undefined,
+    editedIngredientIndex:-1
 }
 
 export function shoppingListReducer(state = initialState,action:addShoppingList | addToShoppingList | updateShoppingList | deleteShoppingList){

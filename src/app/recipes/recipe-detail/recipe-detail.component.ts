@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { ingredient } from 'src/app/MODELS/ingredient.model';
 import { Observable } from 'rxjs';
 import { addToShoppingList } from 'src/app/ActionDispatchers/shopping-list-actionDispatcher';
+import { shoppingListState } from 'src/app/reducers/shopping-list-reducer';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -17,7 +18,7 @@ import { addToShoppingList } from 'src/app/ActionDispatchers/shopping-list-actio
 export class RecipeDetailComponent implements OnInit {
   recipe:recipe;
   storeObservable:Observable<{ingredients:ingredient[]}>
-  constructor(private shoppingListService:shoppingListService,private route:ActivatedRoute,private recipeService:recipeListService,private router:Router,private httpClient:HttpClient,private store:Store<{shoppingList:{ingredients:ingredient[]}}>) { }
+  constructor(private shoppingListService:shoppingListService,private route:ActivatedRoute,private recipeService:recipeListService,private router:Router,private httpClient:HttpClient,private store:Store<{shoppingList:shoppingListState}>) { }
 
   ngOnInit(): void {
     this.route.data.subscribe((data:Data) => {
