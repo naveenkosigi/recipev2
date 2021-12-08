@@ -13,6 +13,14 @@ export class addToShoppingList implements Action{
     readonly type="ADD_MULTIPLE";
 
     constructor(public payload:ingredient[]){
+
+    }
+}
+
+export class updateShoppingList implements Action{
+    readonly type="UPDATE";
+
+    constructor(public payload:{ingredient:ingredient,index:number}){
         
     }
 }

@@ -1,5 +1,5 @@
 import { Action } from "@ngrx/store";
-import { addShoppingList, addToShoppingList } from "../ActionDispatchers/shopping-list-actionDispatcher";
+import { addShoppingList, addToShoppingList, updateShoppingList } from "../ActionDispatchers/shopping-list-actionDispatcher";
 import { ingredient } from "../MODELS/ingredient.model";
 
 const initialState={
@@ -9,7 +9,7 @@ const initialState={
     ]
 }
 
-export function shoppingListReducer(state = initialState,action:addShoppingList | addToShoppingList){
+export function shoppingListReducer(state = initialState,action:addShoppingList | addToShoppingList | updateShoppingList){
     switch(action.type){
         case "ADD":
             return{
@@ -20,7 +20,21 @@ export function shoppingListReducer(state = initialState,action:addShoppingList 
             return{
                 ...state,
                 ingredients:[...state.ingredients,...action.payload]
-            }    
+            }
+        case "UPDATE":
+            const stateIngredient=state.ingredients[action.payload.index];
+            const newIngredient={
+                ...stateIngredient,
+                ...action.payload.ingredient
+            };
+
+            const updatedIngredients=[...state.ingredients];
+            updatedIngredients[action.payload.index]=newIngredient;
+            
+            return {
+                ...state,
+                ingredients:updatedIngredients
+            }
         default:
             return state;    
     }
