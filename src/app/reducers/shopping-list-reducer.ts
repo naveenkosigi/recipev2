@@ -1,5 +1,5 @@
 import { Action } from "@ngrx/store";
-import { addShoppingList, addToShoppingList, deleteShoppingList, updateShoppingList } from "../ActionDispatchers/shopping-list-actionDispatcher";
+import { addShoppingList, addToShoppingList, deleteShoppingList, startEditingList, stopEditingList, updateShoppingList } from "../ActionDispatchers/shopping-list-actionDispatcher";
 import { ingredient } from "../MODELS/ingredient.model";
 
 export interface shoppingListState{
@@ -9,7 +9,7 @@ export interface shoppingListState{
 export interface state{
     ingredients:ingredient[],
     editedIngredient:ingredient,
-    editedIngredientIndex:Number
+    editedIngredientIndex:number
 }
 
 const initialState : state={
@@ -21,7 +21,7 @@ const initialState : state={
     editedIngredientIndex:-1
 }
 
-export function shoppingListReducer(state = initialState,action:addShoppingList | addToShoppingList | updateShoppingList | deleteShoppingList){
+export function shoppingListReducer(state = initialState,action:addShoppingList | addToShoppingList | updateShoppingList | deleteShoppingList | startEditingList | stopEditingList) : state{
     switch(action.type){
         case "ADD":
             return{
@@ -54,6 +54,20 @@ export function shoppingListReducer(state = initialState,action:addShoppingList 
                     return index !== action.payload.index;
                 })
             }
+        case "START_EDIT":{
+            return{
+                ...state,
+                editedIngredient:{...state.ingredients[action.payload.index]},
+                editedIngredientIndex:action.payload.index
+            }
+        }
+        case "STOP_EDIT":{
+            return{
+                ...state,
+                editedIngredient:undefined,
+                editedIngredientIndex:-1
+            }
+        }    
         default:
             return state;    
     }

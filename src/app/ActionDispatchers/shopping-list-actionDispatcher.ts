@@ -32,3 +32,16 @@ export class deleteShoppingList implements Action{
 
     }
 }
+
+export class startEditingList implements Action{
+    readonly type="START_EDIT";
+
+    constructor(public payload:{index:number}){
+
+    }
+}
+
+export class stopEditingList implements Action{
+    readonly type="STOP_EDIT";
+
+}
