@@ -20,7 +20,7 @@ export class logIn implements Action{
 export class logOut implements Action{
     type="LOGOUT";
 
-    constructor(public payload:{sessionDetails:sessionModel}){
+    constructor(){
         
     }
 }
