@@ -1,11 +1,11 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit, Output,EventEmitter, ViewChild, OnDestroy, AfterContentInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { deleteShoppingList, stopEditingList, updateShoppingList } from 'src/app/ActionDispatchers/shopping-list-actionDispatcher';
+import { appState } from 'src/app/AppState/appState';
 import { ingredient } from 'src/app/MODELS/ingredient.model';
-import { shoppingListState, state } from 'src/app/reducers/shopping-list-reducer';
+import { state } from 'src/app/reducers/shopping-list-reducer';
 import { shoppingListService } from 'src/app/services/shopping-list.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class ShoppingEditComponent implements OnInit,OnDestroy,AfterContentInit 
   subscription:Subscription;
   editIndex:number;
   editIngredint:ingredient;
-  constructor(private shoppingListService:shoppingListService,private store:Store<shoppingListState>) { }
+  constructor(private shoppingListService:shoppingListService,private store:Store<appState>) { }
 
   ngOnInit(): void {
 

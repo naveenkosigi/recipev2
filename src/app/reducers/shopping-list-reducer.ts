@@ -2,9 +2,9 @@ import { Action, ActionReducer } from "@ngrx/store";
 import { addShoppingList, addToShoppingList, deleteShoppingList, startEditingList, stopEditingList, updateShoppingList } from "../ActionDispatchers/shopping-list-actionDispatcher";
 import { ingredient } from "../MODELS/ingredient.model";
 
-export interface shoppingListState{
-    shoppingList:state
-}
+// export interface shoppingListState{
+//     shoppingList:state
+// }
 
 export interface state{
     ingredients:ingredient[],

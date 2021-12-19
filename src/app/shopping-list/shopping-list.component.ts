@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { startEditingList } from '../ActionDispatchers/shopping-list-actionDispatcher';
+import { appState } from '../AppState/appState';
 import {ingredient} from '../MODELS/ingredient.model';
-import { shoppingListState } from '../reducers/shopping-list-reducer';
 import { canDeactiveInterface } from '../services/canDeactivate-guard';
 import { shoppingListService } from '../services/shopping-list.service';
 
@@ -13,7 +13,7 @@ import { shoppingListService } from '../services/shopping-list.service';
 })
 export class ShoppingListComponent implements OnInit,canDeactiveInterface {
   ingredients:ingredient[]=[];
-  constructor(public shoppingListService:shoppingListService,private store:Store<shoppingListState>) { 
+  constructor(public shoppingListService:shoppingListService,private store:Store<appState>) { 
     this.ingredients=this.shoppingListService.getIngredients();
     this.shoppingListService.triggerChange.subscribe(
       () => {
