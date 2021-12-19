@@ -1,4 +1,4 @@
-import { Action } from "@ngrx/store";
+import { Action, ActionReducer } from "@ngrx/store";
 import { addShoppingList, addToShoppingList, deleteShoppingList, startEditingList, stopEditingList, updateShoppingList } from "../ActionDispatchers/shopping-list-actionDispatcher";
 import { ingredient } from "../MODELS/ingredient.model";
 
@@ -21,7 +21,7 @@ const initialState : state={
     editedIngredientIndex:-1
 }
 
-export function shoppingListReducer(state = initialState,action:addShoppingList | addToShoppingList | updateShoppingList | deleteShoppingList | startEditingList | stopEditingList) : state{
+export function shoppingListReducer(state : state = initialState,action:addShoppingList | addToShoppingList | updateShoppingList | deleteShoppingList | startEditingList | stopEditingList ) : state{
     switch(action.type){
         case "ADD":
             return{

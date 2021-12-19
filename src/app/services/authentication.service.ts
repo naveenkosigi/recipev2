@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { Observable, Subject } from "rxjs";
 import { tap } from "rxjs/operators";
 
-interface sessionModel{
+export interface sessionModel{
     displayName:string,
     email:string,
     expiresIn:string,

@@ -14,6 +14,8 @@ import { sharedModule } from './modules/shared-module';
 import { sharedServices } from './modules/shared-services';
 import { StoreModule } from '@ngrx/store';
 import { shoppingListReducer } from './reducers/shopping-list-reducer';
+import { authReducer } from './reducers/authentication-reducer';
+import { appReducerMap } from './AppState/appState';
 
 
 @NgModule({
@@ -32,7 +34,7 @@ import { shoppingListReducer } from './reducers/shopping-list-reducer';
     shoppingListModule,
     sharedModule,
     sharedServices,
-    StoreModule.forRoot({shoppingList:shoppingListReducer})
+    StoreModule.forRoot(appReducerMap)
   ],
   providers: [],
   bootstrap: [AppComponent]
