@@ -24,7 +24,6 @@ export class authenticateService{
     isLoggedIn:boolean=false;
     sessionDetails:sessionModel;
     private webAPI:string='AIzaSyC6SJDKQ2B5NIknJOYko0abZsk76N1y22Q';
-    sessionSubject:Subject<boolean>=new Subject();
     private storeObservable:Store<appState>
     constructor(private httpService:HttpClient,private router:Router,private store:Store<appState>){
 
@@ -38,7 +37,6 @@ export class authenticateService{
             this.isLoggedIn=true;
             this.updateSessionData(data);
             console.log(this.isLoggedIn,data);
-            this.sessionSubject.next(true);
         }));
     }
 
@@ -52,7 +50,6 @@ export class authenticateService{
             this.updateSessionData(data);
             console.log('loggedIn');
             console.log(this.sessionDetails);
-            this.sessionSubject.next(true);
         }));
     }
 
@@ -67,7 +64,6 @@ export class authenticateService{
         localStorage.clear();
         this.sessionDetails=undefined;
         this.store.dispatch(new logOut());
-        this.sessionSubject.next(false);
         this.router.navigateByUrl("/authenticate");
     }
 
@@ -77,14 +73,13 @@ export class authenticateService{
             this.sessionDetails.expirationDate=new Date(this.sessionDetails.expirationDate);
             if(new Date()<this.sessionDetails.expirationDate){
                 this.store.dispatch(new logIn({sessionDetails:this.sessionDetails}));
-                this.sessionSubject.next(true);
                 return;
             }
         }
 
         localStorage.clear();
         this.sessionDetails=undefined;
-        this.sessionSubject.next(false);
+        this.store.dispatch(new logOut());
         this.router.navigateByUrl("/authenticate");
     }
 }

@@ -1,5 +1,8 @@
 import { Component, OnInit,EventEmitter, Output, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
+import { appState } from '../AppState/appState';
+import { authState } from '../reducers/authentication-reducer';
 import { authenticateService } from '../services/authentication.service';
 
 @Component({
@@ -7,13 +10,18 @@ import { authenticateService } from '../services/authentication.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit,OnDestroy {
+export class HeaderComponent implements OnInit{
   @Output() toReturn=new EventEmitter<number>();
-  subscription:Subscription;
   showAuthentication:boolean=true;
-  constructor(private authService:authenticateService) { 
-    this.subscription=authService.sessionSubject.subscribe(sessionBoolean => {
-      if(sessionBoolean === false){
+  private storeObservable:Observable<authState>;
+  constructor(private authService:authenticateService,private store:Store<appState>) {
+    this.storeObservable=this.store.select('authState');
+  }
+
+  ngOnInit(): void {
+    this.storeObservable.subscribe((state:authState) => {
+
+      if(state.sessionDetails === null){
         this.showAuthentication=true;
       }
       else{
@@ -22,15 +30,8 @@ export class HeaderComponent implements OnInit,OnDestroy {
     });
   }
 
-  ngOnInit(): void {
-  }
-
   click(num:number):void{
     this.toReturn.emit(num);
-  }
-
-  ngOnDestroy(){
-    this.subscription.unsubscribe();
   }
 
   logOut(){
