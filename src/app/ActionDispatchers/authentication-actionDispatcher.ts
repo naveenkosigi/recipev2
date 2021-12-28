@@ -24,3 +24,9 @@ export class logOut implements Action{
         
     }
 }
+
+export class loginStart implements Action{
+    type="LOGINSTART";
+
+    constructor(public payload:{email:string,password:string}){}
+}

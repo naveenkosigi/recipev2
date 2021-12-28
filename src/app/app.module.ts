@@ -13,9 +13,9 @@ import { shoppingListModule } from './MODELS/shopping-list.model';
 import { sharedModule } from './modules/shared-module';
 import { sharedServices } from './modules/shared-services';
 import { StoreModule } from '@ngrx/store';
-import { shoppingListReducer } from './reducers/shopping-list-reducer';
-import { authReducer } from './reducers/authentication-reducer';
 import { appReducerMap } from './AppState/appState';
+import { EffectsModule } from '@ngrx/effects';
+import { authEffects } from './effects/authEffects';
 
 
 @NgModule({
@@ -34,7 +34,8 @@ import { appReducerMap } from './AppState/appState';
     shoppingListModule,
     sharedModule,
     sharedServices,
-    StoreModule.forRoot(appReducerMap)
+    StoreModule.forRoot(appReducerMap),
+    EffectsModule.forRoot([authEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]
