@@ -31,9 +31,7 @@ export class AuthenticateComponent implements OnInit,AfterContentInit {
   authenticate(isSignUp:boolean):void{
     console.log(this.form);
     if(isSignUp === false){
-      this.authenticateService.logIn(this.form.get('username').value,this.form.get('password').value).subscribe(() => {
-        this.router.navigateByUrl("/recipes");
-      });
+      this.authenticateService.logIn(this.form.get('username').value,this.form.get('password').value);
     }
     else{
       this.authenticateService.signUp(this.form.get('username').value,this.form.get('password').value).subscribe(() => {

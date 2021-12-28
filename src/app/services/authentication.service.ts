@@ -40,10 +40,9 @@ export class authenticateService{
         }));
     }
 
-    logIn(email:string,password:string) : Observable<any>{
+    logIn(email:string,password:string) : void{
         let payload={email:email,password:password};
         this.store.dispatch(new loginStart(payload));
-        return of();
         // return this.httpService.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + this.webAPI,{
         //     email:email,
         //     password:password,
