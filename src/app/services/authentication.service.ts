@@ -2,9 +2,9 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
-import { Observable, Subject } from "rxjs";
+import { Observable, of, Subject } from "rxjs";
 import { tap } from "rxjs/operators";
-import { logIn, logOut } from "../ActionDispatchers/authentication-actionDispatcher";
+import { logIn, loginStart, logOut } from "../ActionDispatchers/authentication-actionDispatcher";
 import { appState } from "../AppState/appState";
 
 export interface sessionModel{
@@ -40,24 +40,26 @@ export class authenticateService{
         }));
     }
 
-    logIn(email:string,password:String) : Observable<any>{
-        return this.httpService.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + this.webAPI,{
-            email:email,
-            password:password,
-            returnSecureToken:true
-        }).pipe(tap(data => {
-            this.isLoggedIn=true;
-            this.updateSessionData(data);
-            console.log('loggedIn');
-            console.log(this.sessionDetails);
-        }));
+    logIn(email:string,password:string) : Observable<any>{
+        let payload={email:email,password:password};
+        this.store.dispatch(new loginStart(payload));
+        return of();
+        // return this.httpService.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + this.webAPI,{
+        //     email:email,
+        //     password:password,
+        //     returnSecureToken:true
+        // }).pipe(tap(data => {
+        //     this.updateSessionData(data);
+        // }));
     }
 
     updateSessionData(response):void{
         let expirationDate=new Date(new Date().getTime() + +response.expiresIn * 1000);
         this.sessionDetails={...response,expirationDate:expirationDate};
-        this.store.dispatch(new logIn({sessionDetails:this.sessionDetails}));
         localStorage.setItem("cache",JSON.stringify(this.sessionDetails));
+        this.isLoggedIn=true;
+        console.log('loggedIn');
+        console.log(this.sessionDetails);
     }
 
     logOut() : void{
