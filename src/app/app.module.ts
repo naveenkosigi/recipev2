@@ -16,6 +16,8 @@ import { StoreModule } from '@ngrx/store';
 import { appReducerMap } from './AppState/appState';
 import { EffectsModule } from '@ngrx/effects';
 import { authEffects } from './effects/authEffects';
+import {StoreDevtoolsModule} from  '@ngrx/store-devtools'
+import { environment } from 'src/environments/environment';
 
 
 @NgModule({
@@ -35,7 +37,8 @@ import { authEffects } from './effects/authEffects';
     sharedModule,
     sharedServices,
     StoreModule.forRoot(appReducerMap),
-    EffectsModule.forRoot([authEffects])
+    EffectsModule.forRoot([authEffects]),
+    StoreDevtoolsModule.instrument({logOnly:environment.production})
   ],
   providers: [],
   bootstrap: [AppComponent]
