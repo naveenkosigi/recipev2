@@ -1,7 +1,13 @@
 <div class="row">
+    
     <div class="col-md-12">
         <app-shopping-edit (sendIngredient)="addIngredient($event)"></app-shopping-edit>
         <hr>
+
+        <div class="alert alert-info">
+            <strong> Click to edit a Shopping List Item </strong> 
+        </div>
+        
         <ul class="list-group">
             <li class="list-group-item" *ngFor="let ingredient of (shoppingListService.storeObservable | async).ingredients;let i=index;" (click)="editIngredient(i)">{{ingredient.name}} ({{ingredient.amount}})</li>
         </ul>
