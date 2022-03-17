@@ -5,6 +5,15 @@
 </div>
 <hr>
 
+<div class="input-group">
+    <input type="text" class="form-control" placeholder="Search Recipes.." [(ngModel)]="searchString">
+    <div class="input-group-btn">
+      <button class="btn btn-default" type="button">
+        <i class="glyphicon glyphicon-search"></i>
+      </button>
+    </div>
+</div>
+
 <div *ngIf="isLoading;else elseBlock">
     <div class="row">
         <div class="col-xs-12">
@@ -22,5 +31,5 @@
 </div>
 
 <ng-template #elseBlock>
-    <app-recipe-item *ngFor="let recipe of recipes" [recipe]="recipe" (selectedRecipe)="clickedRecipe($event)"></app-recipe-item>
+    <app-recipe-item *ngFor="let recipe of recipes | searchRecipes : searchString" [recipe]="recipe" (selectedRecipe)="clickedRecipe($event)"></app-recipe-item>
 </ng-template>
