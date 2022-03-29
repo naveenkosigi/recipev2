@@ -28,7 +28,7 @@
         <br/>
         <label>INGREDIENTS</label>
         <div class="row" formArrayName="ingredients">
-            <div class="row" *ngFor="let ingredients of aliases.controls;let i=index" [formGroupName]="i">
+            <div *ngFor="let ingredients of aliases.controls;let i=index" [formGroupName]="i">
                 <div class="col-xs-8">
                     <input type="text" class="form-control" formControlName="name">
                 </div>
