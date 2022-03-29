@@ -27,7 +27,7 @@ export class ShoppingEditComponent implements OnInit,OnDestroy,AfterContentInit 
   }
 
   ngAfterContentInit(): void {
-    this.store.select('shoppingList').subscribe((state:state) => {
+    this.subscription=this.store.select('shoppingList').subscribe((state:state) => {
       if(state.editedIngredientIndex > -1){
         console.log(state);
         this.editIngredint=state.editedIngredient;
@@ -55,6 +55,7 @@ export class ShoppingEditComponent implements OnInit,OnDestroy,AfterContentInit 
   }
 
   ngOnDestroy():void{
+    this.subscription.unsubscribe();
   }  
 
   deleteRecipe():void{

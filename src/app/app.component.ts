@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
   selectedTab:number=1;
 
   constructor(private authService:authenticateService){
-
+    window.console.log = function(){};  //removing console logs temporarily
   }
   showTab(num : number){
     this.selectedTab = num;
