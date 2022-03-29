@@ -31,3 +31,7 @@ img.img-thumbnail{
 h1.grey-out:first-of-type{
     margin-top: 100px;
 }
+
+.searchContainer{
+    margin-bottom: 12px;
+}
