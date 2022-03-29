@@ -1,4 +1,4 @@
-import { Component, OnInit, Output,EventEmitter, ViewChild, OnDestroy, AfterContentInit } from '@angular/core';
+import { Component, OnInit, Output,EventEmitter, ViewChild, OnDestroy, AfterContentInit, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -13,7 +13,7 @@ import { shoppingListService } from 'src/app/services/shopping-list.service';
   templateUrl: './shopping-edit.component.html',
   styleUrls: ['./shopping-edit.component.css']
 })
-export class ShoppingEditComponent implements OnInit,OnDestroy,AfterContentInit {
+export class ShoppingEditComponent implements OnInit,OnDestroy,AfterViewInit {
   @Output() sendIngredient=new EventEmitter<ingredient>();
   @ViewChild("ngForm") ngForm:NgForm;
   subscription:Subscription;
@@ -26,7 +26,7 @@ export class ShoppingEditComponent implements OnInit,OnDestroy,AfterContentInit 
     
   }
 
-  ngAfterContentInit(): void {
+  ngAfterViewInit(): void {
     this.subscription=this.store.select('shoppingList').subscribe((state:state) => {
       if(state.editedIngredientIndex > -1){
         console.log(state);
