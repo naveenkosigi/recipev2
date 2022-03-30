@@ -14,7 +14,8 @@ const routes:Routes=[
     {path : 'recipes', loadChildren : () => import('./modules/recipes-module').then(module => {
       console.log(module);
       return module.recipeModule;
-    })}
+    })},
+    {path : '**',redirectTo: 'recipes'}
 
   ];
 

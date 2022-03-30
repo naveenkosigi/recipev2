@@ -6,12 +6,12 @@ import { environment } from "src/environments/environment";
 import { of } from "rxjs";
 import { authenticateService } from "../services/authentication.service";
 import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Injectable()
 export class authEffects{
 
-    constructor(private action:Actions,private httpService:HttpClient,private authService:authenticateService,private router:Router){}
+    constructor(private action:Actions,private httpService:HttpClient,private authService:authenticateService,private router:Router,private route : ActivatedRoute){}
     webAPI=environment.webApi;
     @Effect()
     authLogin=this.action.pipe(
@@ -36,7 +36,7 @@ export class authEffects{
     authSuccess=this.action.pipe(
         ofType("LOGIN"),
         tap(() => {
-            this.router.navigateByUrl("/recipes");
+            this.router.navigateByUrl(window.location.pathname);
         })
     );
 }
