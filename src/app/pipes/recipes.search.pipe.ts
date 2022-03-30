@@ -12,7 +12,8 @@ export class searchRecipes implements PipeTransform{
         else{
             const toReturn=[];
             for(let recipe of recipes){
-                if(recipe.name.toLowerCase().indexOf(searchString.toLowerCase()) > -1){
+                if(recipe.name.toLowerCase().indexOf(searchString.toLowerCase()) > -1 
+                    || recipe.description.toLowerCase().indexOf(searchString.toLowerCase()) > -1){
                     toReturn.push(recipe);
                 }
             }
